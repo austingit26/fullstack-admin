@@ -9,7 +9,11 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
+import { fileURLToPath } from "url";
+import { join, dirname } from "path";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 //data imports
 import User from "./models/User.js";
 import Product from "./models/Product.js";
@@ -25,14 +29,6 @@ import {
   dataOverallStat,
   dataAffiliateStat,
 } from "./data/index.js";
-
-// Serve static files from the 'dist' folder
-app.use(express.static(path.join(__dirname, "dist")));
-
-// Catch-all route
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
 
 /* CONFIGURATION */
 dotenv.config();
@@ -50,6 +46,14 @@ app.use("/client", clientRoutes);
 app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
+
+// Serve static files from the 'dist' folder
+app.use(express.static(join(__dirname, "dist")));
+
+// Catch-all route
+app.get("*", (req, res) => {
+  res.sendFile(join(__dirname, "dist", "index.html"));
+});
 
 /* MONGOOSE SET UP */
 const PORT = process.env.PORT || 9000;
