@@ -26,6 +26,14 @@ import {
   dataAffiliateStat,
 } from "./data/index.js";
 
+// Serve static files from the 'dist' folder
+app.use(express.static(path.join(__dirname, "dist")));
+
+// Catch-all route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
 /* CONFIGURATION */
 dotenv.config();
 const app = express();
