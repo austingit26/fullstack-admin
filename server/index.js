@@ -48,7 +48,7 @@ app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
 // Serve static files from the 'dist' folder
-app.use(express.static(join(__dirname, "dist")));
+app.use(express.static(join(__dirname, "../dist")));
 
 // Catch-all route
 app.get("*", (req, res) => {
