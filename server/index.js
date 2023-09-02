@@ -47,16 +47,8 @@ app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
-// Serve static files from the 'dist' folder
-app.use(express.static(join(__dirname, "../dist")));
-
-// Catch-all route
-app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "dist", "index.html"));
-});
-
 /* MONGOOSE SET UP */
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 5001;
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -74,3 +66,11 @@ mongoose
     // AffliateStat.insertMany(dataAffiliateStat);
   })
   .catch((error) => console.log(`${error} did not connect`));
+
+// Serve static files from the 'dist' folder
+app.use(express.static(join(__dirname, "dist")));
+
+// Catch-all route
+app.get("*", (req, res) => {
+  res.sendFile(join(__dirname, "dist", "index.html"));
+});
