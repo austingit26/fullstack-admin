@@ -9,11 +9,7 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
-import { fileURLToPath } from "url";
-import { join, dirname } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 //data imports
 import User from "./models/User.js";
 import Product from "./models/Product.js";
@@ -66,13 +62,5 @@ mongoose
     // AffliateStat.insertMany(dataAffiliateStat);
   })
   .catch((error) => console.log(`${error} did not connect`));
-
-// Serve static files from the 'dist' folder
-app.use(express.static(join(__dirname, "dist")));
-
-// Catch-all route
-app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "dist", "index.html"));
-});
 
 export default app;
